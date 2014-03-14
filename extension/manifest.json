@@ -1,0 +1,29 @@
+{
+    "manifest_version" : 2,
+    "name" : "eMeme: making email responses more meme-ingful.",
+    "description" : "eMeme generates the perfect meme response for email communication using natural language processing.",
+    "version" : "1.0.0",
+    "background" : {
+        "scripts" : ["jquery.js", "urlListener.js"],
+        "persistent" : false
+    },
+    "page_action" :
+    {
+        "default_icon" : "icons/eMeme128.png",
+        "default_title" : "Meme email Response Extension"
+    },
+    "permissions" : [
+        "tabs",
+        "http://*/",
+        "contextMenus"
+    ],
+    "icons" : {
+        "48" : "icons/eMeme48.png",
+        "128" : "icons/eMeme128.png"
+    },
+    "content_scripts" :[
+        {
+        "matches": ["http://mail.google.com/*"],
+        "js" : ["jquery.js", "myScript.js"]
+        }]
+}
