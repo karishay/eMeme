@@ -4,7 +4,7 @@
     "description" : "eMeme generates the perfect meme response for email communication using natural language processing.",
     "version" : "1.0.0",
     "background" : {
-        "scripts" : ["jquery.js", "urlListener.js"],
+        "scripts" : ["jquery.js", "backgroundScript.js"],
         "persistent" : false
     },
     "page_action" :
@@ -14,16 +14,25 @@
     },
     "permissions" : [
         "tabs",
-        "http://*/",
-        "contextMenus"
+        "*://*/",
+        "contextMenus",
+        "webNavigation"
     ],
     "icons" : {
         "48" : "icons/eMeme48.png",
         "128" : "icons/eMeme128.png"
     },
-    "content_scripts" :[
+    "content_scripts" : [
         {
-        "matches": ["http://mail.google.com/*"],
-        "js" : ["jquery.js", "myScript.js"]
-        }]
+            "matches": ["*://mail.google.com/*"],
+            "js" : ["jquery.js","contentScript.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        "jquery.js"
+    ],
+    "externally_connectable": {
+        "ids": ["*"],
+        "matches": ["*://mail.gmail.com/*"]
+    }
 }
