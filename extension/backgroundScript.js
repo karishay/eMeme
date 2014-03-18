@@ -12,13 +12,6 @@ function isUrlGmail(tabId, changeInfo, tab){
 // listen for url changes on any tab.
 chrome.tabs.onUpdated.addListener(isUrlGmail);
 
-//This function logs the selected text upon clicking the context menu item
-function onClickHandler(info, tab) {
-
-  //log the selected text in the console.
-  selectedText = info.selectionText
-  console.log(selectedText);
-};
 
 
 chrome.contextMenus.onClicked.addListener(onClickHandler);
@@ -33,21 +26,37 @@ chrome.runtime.onInstalled.addListener(function() {
 
 });
 
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    console.log(message);
+    sendResponse("background sees that the reply box had been opened");
+});
 
-//TODO: either rebuild this or get it working better. it works in the console, 
-//but not in the extension. See if it's related to background page vs content script
 
-// function isReplyBoxOpen(info, tab){
-//     var pants = $('.editable');
-//     console.log(pants);
-//     if (pants){
-//         console.log("Yep, your reply box is open.");
-//         return pants.innerHTML = '<img src="https://images.nga.gov/?service=asset&action=show_preview&asset=19750">'
 
-//     }else{
-//         console.log("nope, not working.")
-//     }
-// };
+////////////////////////////////////////////////////////////////////////////////
+//////////////////// Extentsion functionality Here /////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
-// chrome.tabs.onClicked.addListener(isReplyBoxOpen);
+//This function logs the selected text upon clicking the context menu item
+function onClickHandler(info, tab) {
+  return chrome.runtime.sendMessage(info.selectionText);
+};
+
+// this function sends the selected text to the server
+function sendSelectionToServer(){
+  return "<img src='http://graphics8.nytimes.com/images/2013/10/27/magazine/27economy/mag-27Economy-t_CA0-articleLarge.jpg'>"
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
