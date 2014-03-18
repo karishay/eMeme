@@ -28,6 +28,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
     console.log(message);
+    //add in if statement here
     sendResponse("background sees that the reply box had been opened");
 });
 
@@ -44,13 +45,25 @@ function onClickHandler(info, tab) {
 
 // this function sends the selected text to the server
 function sendSelectionToServer(){
-  return "<img src='http://graphics8.nytimes.com/images/2013/10/27/magazine/27economy/mag-27Economy-t_CA0-articleLarge.jpg'>"
+  return true
+ 
 };
 
-
-
-
-
+function sendImgToContent(){
+  console.log("argrgrgrgrggrgrh!");
+    chrome.tabs.getSelected(null, function(tab) {
+      var img ="<img src='http://www.wordpresstipstricksandtweaks.com/wp-content/uploads/2012/10/short-url.png'>"
+      alert("Background script is sending img to content script.");
+      chrome.tabs.sendMessage(tabs.id, {message: img});
+    })
+  // chrome.tabs.query({active: true, currentWindow: true, function(tabs){
+  //   chrome.tabs.sendMessage(tabs[0].id, {img : "<img src='http://graphics8.nytimes.com/images/2013/10/27/magazine/27economy/mag-27Economy-t_CA0-articleLarge.jpg'>"},
+  // function(response) {
+  //   console.log("I sent this img " + message);
+  // });
+  // });
+  // });
+};
 
 
 
